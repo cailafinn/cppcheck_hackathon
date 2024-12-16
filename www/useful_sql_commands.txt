@@ -1,0 +1,20 @@
+-- Get a random unassigned issue. 
+SELECT id FROM sets WHERE assigned_to IS NULL ORDER BY RANDOM() LIMIT 1;
+
+-- Assign a random, incomplete issue to Alpha
+UPDATE sets SET assigned_to=1 WHERE id IN (SELECT id FROM sets WHERE assigned_to IS NULL ORDER BY RANDOM() LIMIT 1);
+-- Bravo
+UPDATE sets SET assigned_to=2 WHERE id IN (SELECT id FROM sets WHERE assigned_to IS NULL ORDER BY RANDOM() LIMIT 1);
+-- Charlie
+UPDATE sets SET assigned_to=3 WHERE id IN (SELECT id FROM sets WHERE assigned_to IS NULL ORDER BY RANDOM() LIMIT 1);
+-- Delta
+UPDATE sets SET assigned_to=4 WHERE id IN (SELECT id FROM sets WHERE assigned_to IS NULL ORDER BY RANDOM() LIMIT 1);
+-- Echo
+UPDATE sets SET assigned_to=5 WHERE id IN (SELECT id FROM sets WHERE assigned_to IS NULL ORDER BY RANDOM() LIMIT 1);
+-- Foxtrot
+UPDATE sets SET assigned_to=6 WHERE id IN (SELECT id FROM sets WHERE assigned_to IS NULL ORDER BY RANDOM() LIMIT 1);
+
+-- Mark a set as completed.
+UPDATE sets SET completed=TRUE, merged_by=x WHERE id=x
+
+
