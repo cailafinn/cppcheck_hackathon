@@ -11,7 +11,9 @@
 </style>
 </head>
 <body>
-	<h1>CppCheck Hackathon</h1>
+	<h1>Mantid CppCheck Hackathon</h1>
+
+	<h2><a href="rules.html"> The Rules</a> </h2>
 <?php
 ini_set('display_errors', 1);
 error_reporting(E_ALL);

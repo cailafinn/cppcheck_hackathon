@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="styles.css">
+<style>
+    .intro {
+        text-align: center;
+    }
+    h2 {
+        text-align: left;
+    }
+</style>
+</head>
+<body>
+	<h1 class='intro'>The Rules</h1>
+
+    <p class='intro'>Welcome to the Mantid CppCheck Hackathon. The aim of the game is to fix as many of the CppCheck suppressions currently affecting the Mantid codebase as possible.</p>
+    <p class='intro'>Each of you have been assigned a team. You will work within your team to fix sets of suppressions that have been assigned to your team on the previous page. Fixing suppressions earns victory points (VP).</p>
+    <p class='intro'>The team with the greatest number of victory points wins the hackathon.</p>
+
+    <h2>Scoring Victory Points</h2>
+    <p> Victory points are scored in two ways:</p>
+    <ol>
+        <li>Your team creates and gets merged a PR containing fixes for all suppressions within a set: <strong>3VP</strong></li>
+        <li>Your team approves and merges another team's PR: <strong>1VP</strong></li>
+    </ol>
+
+    <h2>Set Assignments</h2>
+    <p>Your team will have 3 incomplete sets assigned to them at any one time (depending on Jenkins load, additional sets may be assigned if all open PRs are waiting for CI to complete)</p>
+    <p>A set is considered complete when it is merged into the codebase.</p>
+    <p>Inform Caila when one of you team's PRs is merged to be assigned a new set.</p>
+
+    <h2>PR Process</h2>
+    <p>Normal PR etiquette still applies. If you worked on the code in the PR, you can't review it. If this means making deals with other teams for reviews, that's part of the game!</p>
+    <p>Include a link to the <a href="http://172.16.111.171/suppressionSet.php?setid=0">suppression list</a> and team name in the PR description.</p>
+    <p><strong>Reviewers</strong> should check all suppressions in the set are fixed. Include your team name in any approvals.</p>
+    <p><strong>Gatekeepers</strong> are expected to merge PRs reviewed by members of their own team. They may not merge their own team's PRs.</p>
+    <p><strong>Assigning yourself to a PR is a signal that you are actively working on reviewing it.</strong> If you are no longer actively reviewing, unassign yourself from the PR.</p>
+
+</body>
+
+</html>
