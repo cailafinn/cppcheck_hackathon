@@ -52,6 +52,7 @@ $suppression_query = pg_prepare($connection, "suppression", "SELECT * FROM suppr
 $suppression_result = pg_execute($connection, "suppression", array($set_id));
 
 echo "<table> <tr> <th colspan='3'> Fixes Required for Suppression Set " . $set_id . "</th> </tr>";
+echo "<tr> <th> Issue </th> <th> File </th> <th> Line </th> </tr>";
 
 while($suppression = pg_fetch_array($suppression_result, null, PGSQL_ASSOC)) {
 	echo "<tr><td>" . $suppression['issue'] . "</td><td>" . $suppression['file'] . "</td><td>" . $suppression['line'] . "</td></tr>";
