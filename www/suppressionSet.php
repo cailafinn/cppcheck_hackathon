@@ -1,19 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" href="styles.css">
 <style>
-h1 {
-        text-align: center;
-}
-
-tfoot, th {
-        background-color: black;
-        color: white;
-}
-
-table, th, td {
-        text-align: center;
-}
 
 table {
 	margin-left: auto;
@@ -29,9 +18,8 @@ th, td {
 	padding: 10px;
 }
 
-div {
-        color: red;
-        width: 100%;
+.code {
+        font-family: 'Consolas', monospace;
 }
 
 
@@ -48,18 +36,23 @@ if (false == $connection) {
 
 $set_id = $_GET['setid'];
 
-$suppression_query = pg_prepare($connection, "suppression", "SELECT * FROM suppressions WHERE set = $1");
+$query_string = "SELECT suppressions.issue, suppressions.file, suppressions.line, sets.completed FROM suppressions INNER JOIN sets ON sets.id=suppressions.set WHERE set=$1;";
+$suppression_query = pg_prepare($connection, "suppression", $query_string);
 $suppression_result = pg_execute($connection, "suppression", array($set_id));
 
-echo "<table> <tr> <th colspan='3'> Fixes Required for Suppression Set " . $set_id . "</th> </tr>";
-echo "<tr> <th> Issue </th> <th> File </th> <th> Line </th> </tr>";
+echo "<h1> Fixes Required for Suppression Set " . $set_id . "</h1>";
+echo "<table><tr> <th> Issue </th> <th> File </th> <th> Line </th> </tr>";
 
 while($suppression = pg_fetch_array($suppression_result, null, PGSQL_ASSOC)) {
-	echo "<tr><td>" . $suppression['issue'] . "</td><td>" . $suppression['file'] . "</td><td>" . $suppression['line'] . "</td></tr>";
+        $background_colour = 'lime';
+        if ($suppression['completed'] == 'f') {
+                $background_colour='yellow';
+        }
+	echo "<tr style='background-color: $background_colour'><td class=code>" . $suppression['issue'] . "</td><td class=code>" . $suppression['file'] . "</td><td>" . $suppression['line'] . "</td></tr>";
 }
 
 
-
+echo "</table>";
 ?>
 
 </body>

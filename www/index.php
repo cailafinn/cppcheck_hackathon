@@ -1,37 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" href="styles.css">
 <style>
-h1 {
-	text-align: center;
-}
-
-tfoot, th {
-	background-color: black;
-	color: white;
-}
-
-table, th, td {
-	text-align: center;
-}
-
-table {
+	table {
 	float: left;
 	width: 50%;
 	padding: 10px;
 }
-
-th, td {
-	width: 33%;
-	border: 1px solid;
-}
-
-div {
-	color: red;
-	width: 100%;
-}
-
-
 </style>
 </head>
 <body>
@@ -41,19 +17,23 @@ ini_set('display_errors', 1);
 error_reporting(E_ALL);
 $connection = pg_connect("dbname=cppcheck_hackathon");
 if (false == $connection) {
-	echo '<div>Failed to connect to database!</div>';
+	echo '<span>Failed to connect to database!</span>';
 }
 
 $name_query = "SELECT * FROM groups;";
 $name_result = pg_query($connection, $name_query);
 
-while ($row = pg_fetch_array($name_result, null, PGSQL_ASSOC)) {
+$col_counter = 1;
+while ($name_row = pg_fetch_array($name_result, null, PGSQL_ASSOC)) {
+	if ($col_counter % 2 == 1) {
+		echo "<div>";
+	}
 	echo "<table><tr>";
-	echo "<th colspan=3>" . $row['name'] . "</th>";
+	echo "<thead><th colspan=3>" . $name_row['name'] . "</th></thead>";
 	echo "</tr>";
-	echo "<tr> <th>Set ID</th><th>Completed</th><th>Merged By</th>";
+	echo "<tr> <th>Set ID</th><th>Completed</th><th>Merged By</th> </tr>";
 	
-	$set_query = "SELECT sets.id, completed, name FROM sets LEFT JOIN groups ON sets.merged_by=groups.id WHERE assigned_to =" . $row['id'];
+	$set_query = "SELECT sets.id, completed, name FROM sets LEFT JOIN groups ON sets.merged_by=groups.id WHERE assigned_to =" . $name_row['id'];
 	$set_result = pg_query($connection, $set_query);
 
 	while($set_row = pg_fetch_array($set_result, null, PGSQL_ASSOC)) {
@@ -65,14 +45,18 @@ while ($row = pg_fetch_array($name_result, null, PGSQL_ASSOC)) {
 		echo "<tr style='background-color: $background_colour'> <td>" . $set_link  . "</td> <td>" .  $set_row['completed'] . "</td> <td>" . $set_row['name'] . "</td></tr>";
 	}
 
-	$completed_query = "SELECT count(*) FROM sets WHERE assigned_to=" . $row['id']  . "AND completed=TRUE;";
+	$completed_query = "SELECT count(*) FROM sets WHERE assigned_to=" . $name_row['id']  . "AND completed=TRUE;";
 	$completed_result = pg_fetch_array(pg_query($connection, $completed_query), null, PGSQL_ASSOC);
 
-	$merged_query = "SELECT count(*) FROM sets WHERE merged_by=" . $row['id']  . "AND completed=TRUE;";
+	$merged_query = "SELECT count(*) FROM sets WHERE merged_by=" . $name_row['id']  . "AND completed=TRUE;";
 	$merged_result = pg_fetch_array(pg_query($connection, $merged_query), null, PGSQL_ASSOC);
 
 	echo "<tfoot> <tr> <td> Fix Score: " . $completed_result['count'] * 3 . " </td> <td> Merge Score: " . $merged_result['count'] . " </td> <td> Total Score: " . (($completed_result['count'] * 3) + ($merged_result['count'])) . "</td> </tr> </tfoot>";
 	echo "</table>";
+	if ($col_counter % 2 == 0) {
+		echo "</div>";
+	}
+	$col_counter++;
 }
 
 

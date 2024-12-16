@@ -1,0 +1,32 @@
+h1 {
+	text-align: center;
+}
+
+tfoot, th {
+	background-color: black;
+	color: white;
+}
+
+table, th, td {
+	text-align: center;
+}
+
+th, td {
+	width: 33%;
+	border: 1px solid;
+}
+
+div {
+	width: 100%;
+	float: left
+}
+
+span {
+	color: red;
+	width: 100%;
+	float: left
+}
+
+* {
+	font-family: 'Avenir Next', sans-serif;
+}
