@@ -35,7 +35,7 @@ while ($name_row = pg_fetch_array($name_result, null, PGSQL_ASSOC)) {
 	echo "</tr>";
 	echo "<tr> <th>Set ID</th><th>Completed</th><th>Merged By</th> </tr>";
 	
-	$set_query = "SELECT sets.id, completed, name FROM sets LEFT JOIN groups ON sets.merged_by=groups.id WHERE assigned_to =" . $name_row['id'];
+	$set_query = "SELECT sets.id, completed, name FROM sets LEFT JOIN groups ON sets.merged_by=groups.id WHERE assigned_to =" . $name_row['id'] . "ORDER BY completed";
 	$set_result = pg_query($connection, $set_query);
 
 	while($set_row = pg_fetch_array($set_result, null, PGSQL_ASSOC)) {
