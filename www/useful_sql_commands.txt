@@ -15,6 +15,6 @@ UPDATE sets SET assigned_to=5 WHERE id IN (SELECT id FROM sets WHERE assigned_to
 UPDATE sets SET assigned_to=6 WHERE id IN (SELECT id FROM sets WHERE assigned_to IS NULL ORDER BY RANDOM() LIMIT 1);
 
 -- Mark a set as completed.
-UPDATE sets SET completed=TRUE, merged_by=x WHERE id=x
+UPDATE sets SET completed=TRUE, merged_by=x WHERE id=x;
 
 
