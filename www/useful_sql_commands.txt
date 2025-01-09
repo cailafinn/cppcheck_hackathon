@@ -17,4 +17,7 @@ UPDATE sets SET assigned_to=6 WHERE id IN (SELECT id FROM sets WHERE assigned_to
 -- Mark a set as completed.
 UPDATE sets SET completed=TRUE, merged_by=x WHERE id=x;
 
+-- Reset all sets.
+UPDATE sets SET assigned_to=NULL, completed=False, merged_by=NULL;
+
 
