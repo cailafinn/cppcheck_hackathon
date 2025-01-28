@@ -9,6 +9,9 @@
     h2 {
         text-align: left;
     }
+    code {
+        font-family: monospace;
+    }
 </style>
 </head>
 <body>
@@ -38,6 +41,29 @@
     <p><strong>Gatekeepers</strong> are expected to merge PRs reviewed by members of their own team. They may not merge their own team's PRs.</p>
     <p><strong>Assigning yourself to a PR is a signal that you are actively working on reviewing it.</strong> If you are no longer actively reviewing, unassign yourself from the PR.</p>
 
+
+    <h2>Handling False Positives</h2>
+    <p>Suppressions that are present in the suppresions file but are affecting code that does not actually need to be changed should be removed from the 
+        suppressions file and suppressed inline.</p>
+    <p>Any that are added should be checked <strong>thouroughly</strong> by gatekeepers.</p>
+
+    <h4> Suppressing a single line:</h4>
+    <pre><code>
+    // cppcheck-suppress arrayIndexOutOfBounds
+    sizeFourArray[5] = 0;</code>
+    </pre>
+    <h4> Suppressing multiple problems in a single line:</h4>
+    <pre><code>
+    // cppcheck-suppress [arrayIndexOutOfBounds,zeroDiv]
+    sizeFourArray[5] = 1 / 0;</code>
+    </pre>
+    <h4> Suppressing multiple lines:</h4>
+    <pre><code>
+    // cppcheck-suppress-begin arrayIndexOutOfBounds
+    sizeFourArray[5] = 0;
+    sizeFiveArray[5] = 1;
+    // cppcheck-suppress-end arrayIndexOutOfBounds
+    </code></pre>
 </body>
 
 </html>

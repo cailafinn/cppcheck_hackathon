@@ -20,4 +20,5 @@ UPDATE sets SET completed=TRUE, merged_by=x WHERE id=x;
 -- Reset all sets.
 UPDATE sets SET assigned_to=NULL, completed=False, merged_by=NULL;
 
-
+-- Import suppressions from a csv file. 
+COPY suppressions from '/home/ubuntu/InitialPlanning.csv' WITH (FORMAT CSV, HEADER);
